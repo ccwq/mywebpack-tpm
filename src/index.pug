@@ -1,0 +1,15 @@
+html
+    -   var opt = htmlWebpackPlugin.options.opt;
+    head
+        //base(href=opt.pkg.staticDirName + "/")
+        title 大家好才是真的好
+    body
+        |   三十六sdfasdf
+        //p=  opt.distPath
+        each js in htmlWebpackPlugin.files.js
+            script(src=js)
+
+
+
+
+
