@@ -1,12 +1,13 @@
 {
   "webpackCfg": {
     "distDirName": "dist",
-    "staticDirName": "static",
+    "staticDirName": "js",
     "port": 8963,
     "host": "localhost"
   },
   "dependencies": {
     "chalk": "^2.3.0",
+    "copy-webpack-plugin": "^4.2.3",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",

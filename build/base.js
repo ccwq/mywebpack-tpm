@@ -1,5 +1,7 @@
 var path = require("path");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+
 var util = require("./util");
 
 
@@ -13,9 +15,9 @@ base.webpack = {
         "subpage":["./src/subpage.js"],
     },
     output:{
-        path        :   util.distStaticPath,
-        //publicPath  :   "",
-        filename    :   '[name].[hash].js'
+        path        :   util.distPath,
+        //publicPath  :   "/",
+        filename    :   util.pkg.staticDirName+'/[name].[hash].js'
     },
     module:{
         rules:[
@@ -28,13 +30,18 @@ base.webpack = {
                 use:["style-loader","css-loader"]
             },
             {
-                test: /\.(png|svg|jpg|gif)$/,
-                use: ['file-loader']
+                test: /\.(png|svg|jpg|gif|woff|woff2|eot|ttf|otf)$/,
+                use: [
+                    {
+                        loader:'file-loader',
+                        options:{
+                            name:"assets/[hash].[ext]"
+                        }
+                    }
+                ],
+
             },
-            {
-                test: /\.(woff|woff2|eot|ttf|otf)$/,
-                use: ['file-loader']
-            },
+
             {
                 test: /\.(pug|jade)$/,
                 use: ['pug-loader']
@@ -55,7 +62,12 @@ base.webpack = {
             chunks:["subpage"],
             filename:"subpage.html"
 
-        })
+        }),
+
+        new CopyWebpackPlugin([{
+            from:path.resolve(util.distStaticPath,"*.html"),
+            to:util.distPath
+        }])
     ]
 };
 
